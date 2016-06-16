@@ -1,3 +1,37 @@
-<h1>
-  {{title}}
-</h1>
+<h1>{{title}}</h1>
+
+<div class="container">
+
+    <div>
+        <h2>Administration</h2>
+
+
+        <form #entity="ngForm">
+
+            <div class="form-group">
+                <label>Entity</label>
+                <select class="form-control" required
+                        (change)="onSelectEntity(entity.value)"
+
+                        ngControl="entity" #entity="ngForm">
+                    <option *ngFor="let entity of entitys" [value]="entity.entity_id">{{entity.entity_code}}
+                    </option>
+                </select>
+                <div [hidden]="entity.value" class="alert alert-danger">
+                    Please select a Entity
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <div [hidden]="!entitySelect">
+        <nav>
+            <a [routerLink]="['RfidMonitor',{entityId: entityId}]">RFID Monitor</a>
+            <a [routerLink]="['RfidReader',{entityId: entityId}]">RFID Reader</a>
+            <a [routerLink]="['UserProfile',{entityId: entityId}]">User Profile</a>
+        </nav>
+        <router-outlet></router-outlet>
+    </div>
+
+</div>
+
