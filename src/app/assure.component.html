@@ -6,22 +6,19 @@
         <h2>Administration</h2>
 
 
-        <form #entity="ngForm">
+        <form [formGroup]="administrationForm">
 
             <div class="form-group">
                 <label>Entity</label>
-                <select class="form-control" required
-                        (change)="onSelectEntity(entity.value)"
-
-                        ngControl="entity" #entity="ngForm">
+                <select formControlName="entity" class="form-control" required (change)="onSelectEntity(administrationForm.value)">
                     <option *ngFor="let entity of entitys" [value]="entity.entity_id">{{entity.entity_code}}
                     </option>
                 </select>
-                <div [hidden]="entity.value" class="alert alert-danger">
-                    Please select a Entity
-                </div>
             </div>
         </form>
+      {{administrationForm.value}}
+      {{value}}
+      {{entity}}
     </div>
 
     <div [hidden]="!entitySelect">

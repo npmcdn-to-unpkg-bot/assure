@@ -1,19 +1,18 @@
 import {Component, OnInit}         from '@angular/core';
 import { Router, RouteConfig, ROUTER_DIRECTIVES, ROUTER_PROVIDERS } from '@angular/router-deprecated';
+import {REACTIVE_FORM_DIRECTIVES, FormControl, FormGroup} from '@angular/forms';
 
 import {RfidMonitorFormComponent} from './rfid-monitor-form.component';
 import {RfidReaderFormComponent} from './rfid-reader-form.component';
 import {UserProfileFormComponent} from "./user-profile-form.component";
 
 import {AdministrationService} from "./administration.service";
-import {RfidMonitorService} from "./rfid-monitor.service";
-import {UserProfileService} from "./user-profile.service";
 import {UtilityService} from "./utility.service";
 
 @Component({
   selector: 'assure-app',
   templateUrl: 'app/assure.component.html',
-  directives: [ROUTER_DIRECTIVES],
+  directives: [ROUTER_DIRECTIVES, REACTIVE_FORM_DIRECTIVES],
   providers: [ROUTER_PROVIDERS, AdministrationService, UtilityService]
 })
 @RouteConfig([
@@ -41,6 +40,10 @@ export class AssureAppComponent implements OnInit {
     entityId:number;
     title:string = 'Next Gen Assure';
 
+  administrationForm = new FormGroup({
+        entity: new FormControl()
+    });
+
     userTypes:any = [];
     userStatuses:any = [];
 
@@ -65,21 +68,9 @@ export class AssureAppComponent implements OnInit {
                 () => console.log('getEntity Finished')
             )
     }
-
-    //onGetUserType() {
-    //    this._httpUtilityService.getUserType()
-    //        .subscribe(
-    ///            data => {
-    //               this.userTypes   = data;
-    //                console.log('onGetUserType = ' + JSON.stringify(data) );
-    //            },
-    //            error => console.log(error), //alert(error.toString()),
-    //            () => console.log('onGetUserType Finished')
-    //        )
-    //}
-
-    onSelectEntity(entityId: number) {
-        console.log('onSelectEntity Called')
+    onSelectEntity(entityId: any) {
+        console.log('onSelectEntity Called entityId 1=' + this.administrationForm.toString() );
+      console.log('onSelectEntity Called entityId 2=' + entityId.toString() );
         this.entitySelect = true;
         this.entityId = entityId;
     }
