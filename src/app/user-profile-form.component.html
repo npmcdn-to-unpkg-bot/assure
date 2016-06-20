@@ -1,0 +1,56 @@
+<div class="container">
+
+        <div *ngIf="selectedUserProfile && editMode != 'no'">
+            <form [formGroup] = "userProfileForm" (ngSubmit)="onSubmit()">
+
+                <div hidden><label>rfid_monitor_id: </label>{{selectedUserProfile.rfid_monitor_id}}</div>
+                <div hidden><label>entity id: </label>{{selectedUserProfile.entity_id}}</div>
+
+                <div *ngIf="editMode == 'insert'"><h2>Create new User Profile</h2></div>
+                <div *ngIf="editMode == 'update'"><h2>Edit existing User Profile</h2></div>
+
+                <div class="items">
+                    <label class="badge" >First Name</label>
+                    <input formControlName="firstName" type="text"  [(ngModel)]="selectedUserProfile.first_name" placeholder="First Name" required>
+                </div>
+                <div class="items">
+                    <label class="badge">Last Name</label>
+                    <input formControlName="lastName" type="text"  [(ngModel)]="selectedUserProfile.last_name" placeholder="Last Name" required>
+                </div>
+                <div class="items">
+                    <label class="badge">Email</label>
+                    <input formControlName="email" type="email"  [(ngModel)]="selectedUserProfile.email" placeholder="Email" required>
+                </div>
+
+                <div class="items">
+                    <label class="badge">Send Booking email</label>
+                    <input formControlName="sendEmail" type="checkbox"  [(ngModel)]="selectedUserProfile.is_send_booking_email">
+                </div>
+                <div class="items">
+                    <label class="badge">Username</label>
+                    <input formControlName="userName" type="text"  [(ngModel)]="selectedUserProfile.username" placeholder="Username"  required>
+                </div>
+
+                <button type="submit" class="btn btn-default"
+                        [disabled]="!userProfileForm.valid">Save
+                </button>
+                <button class="btn btn-default"
+                        (click) = "onCancelUserProfileEdit()">Cancel
+                </button>
+            </form>
+        </div>
+
+        <h2>Existing User Profiles</h2><button (click) = "onNewUserProfile()" name="newUser">Create New</button>
+        <br>
+
+        <ul class="items">
+            <li *ngFor="let UserProfile of UserProfiles"
+                [class.selected]="UserProfile === selectedUserProfile"
+                (click)="onSelect(UserProfile)">
+                <div class="items">
+                    <span class="badge" >{{UserProfile.email}}</span> {{UserProfile.first_name}}
+                </div>
+            </li>
+        </ul>
+</div>
+

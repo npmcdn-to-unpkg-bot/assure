@@ -10,15 +10,16 @@
 
             <div class="form-group">
                 <label>Entity</label>
-                <select formControlName="entity" class="form-control" required (change)="onSelectEntity(administrationForm.value)">
-                    <option *ngFor="let entity of entitys" [value]="entity.entity_id">{{entity.entity_code}}
+                <select class="form-control" required (change)="onSelectEntity(entity)" >
+                    <option *ngFor="let entity of entitys"> {{entity.entity_id}} - {{entity.entity_code}}
                     </option>
                 </select>
+              <li *ngFor="let entity of entitys"  class="form-control" (click)="onSelectEntity(entity)">
+                {{entity.entity_code}}
+              </li>
             </div>
         </form>
-      {{administrationForm.value}}
-      {{value}}
-      {{entity}}
+      {{administrationForm.value | json}}
     </div>
 
     <div [hidden]="!entitySelect">

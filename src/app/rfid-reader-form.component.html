@@ -1,0 +1,43 @@
+<div class="container">
+
+        <div *ngIf="selectedRfidReader && editMode != 'no'">
+            <form [formGroup] = "rfidReaderForm" (ngSubmit)="onSubmit()">
+
+                <div hidden><label>rfid_reader_id: </label>{{selectedRfidReader.rfid_reader_id}}</div>
+                <div hidden><label>entity id: </label>{{selectedRfidReader.entity_id}}</div>
+
+                <div *ngIf="editMode == 'insert'"><h2>Create new RFID Reader</h2></div>
+                <div *ngIf="editMode == 'update'"><h2>Edit existing RFID Reader</h2></div>
+
+                <div class="items">
+                    <label class="badge">Reader Code</label>
+                    <input formControlName="readerCode"  [(ngModel)]="selectedRfidReader.rfid_reader_code" placeholder="Reader Code"  required>
+                </div>
+                <div class="items">
+                    <label class="badge">Description</label>
+                    <input formControlName="description"  [(ngModel)]="selectedRfidReader.description" placeholder="Description"  required>
+                </div>
+
+                <button type="submit" class="btn btn-default"
+                        [disabled]="!rfidReaderForm.valid">Save
+                </button>
+                <button class="btn btn-default"
+                        (click) = "onCancelReaderEdit()">Cancel
+                </button>
+            </form>
+        </div>
+
+        <h2>Existing RFID Readers</h2><button (click) = "onNewReader()" name="newReader">Create New</button>
+        <br>
+
+        <ul class="items">
+            <li *ngFor="let rfidReader of rfidReaders"
+                [class.selected]="rfidReader === selectedRfidReader"
+                (click)="onSelect(rfidReader)">
+                <span class="badge" >{{rfidReader.rfid_reader_code}}</span> {{rfidReader.description}}
+            </li>
+        </ul>
+
+
+</div>
+

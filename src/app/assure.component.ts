@@ -5,6 +5,7 @@ import {REACTIVE_FORM_DIRECTIVES, FormControl, FormGroup} from '@angular/forms';
 import {RfidMonitorFormComponent} from './rfid-monitor-form.component';
 import {RfidReaderFormComponent} from './rfid-reader-form.component';
 import {UserProfileFormComponent} from "./user-profile-form.component";
+import {Entity} from "./entity";
 
 import {AdministrationService} from "./administration.service";
 import {UtilityService} from "./utility.service";
@@ -68,10 +69,10 @@ export class AssureAppComponent implements OnInit {
                 () => console.log('getEntity Finished')
             )
     }
-    onSelectEntity(entityId: any) {
-        console.log('onSelectEntity Called entityId 1=' + this.administrationForm.toString() );
-      console.log('onSelectEntity Called entityId 2=' + entityId.toString() );
+    onSelectEntity(entity: Entity) {
+        //console.log('onSelectEntity Called entityId 1=' + this.administrationForm );
+        console.log('onSelectEntity Called - entity_id =' + entity.entity_id? entity.entity_id : "Not Set" );
         this.entitySelect = true;
-        this.entityId = entityId;
+        this.entityId = entity.entity_id;
     }
 }
