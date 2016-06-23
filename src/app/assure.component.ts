@@ -1,10 +1,7 @@
 import {Component, OnInit}         from '@angular/core';
-import { Router, RouteConfig, ROUTER_DIRECTIVES, ROUTER_PROVIDERS } from '@angular/router-deprecated';
+import { ROUTER_DIRECTIVES } from '@angular/router';
 import {REACTIVE_FORM_DIRECTIVES, FormControl, FormGroup} from '@angular/forms';
 
-import {RfidMonitorFormComponent} from './rfid-monitor-form.component';
-import {RfidReaderFormComponent} from './rfid-reader-form.component';
-import {UserProfileFormComponent} from "./user-profile-form.component";
 import {Entity} from "./entity";
 
 import {AdministrationService} from "./administration.service";
@@ -14,25 +11,8 @@ import {UtilityService} from "./utility.service";
   selector: 'assure-app',
   templateUrl: 'app/assure.component.html',
   directives: [ROUTER_DIRECTIVES, REACTIVE_FORM_DIRECTIVES],
-  providers: [ROUTER_PROVIDERS, AdministrationService, UtilityService]
+  providers: [ AdministrationService, UtilityService]
 })
-@RouteConfig([
-    {
-        path: '/rfidmonitor',
-        name: 'RfidMonitor',
-        component: RfidMonitorFormComponent
-    },
-    {
-        path: '/rfidreader',
-        name: 'RfidReader',
-        component: RfidReaderFormComponent
-    },
-    {
-        path: '/userprofile',
-        name: 'UserProfile',
-        component: UserProfileFormComponent
-    },
-])
 
 export class AssureAppComponent implements OnInit {
 
@@ -48,8 +28,7 @@ export class AssureAppComponent implements OnInit {
     userTypes:any = [];
     userStatuses:any = [];
 
-    constructor(private _router: Router,
-    private _http: AdministrationService,
+    constructor(private _http: AdministrationService,
     private _httpUtilityService: UtilityService) {
 
     }

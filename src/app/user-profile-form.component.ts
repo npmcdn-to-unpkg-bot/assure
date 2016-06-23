@@ -1,9 +1,8 @@
 import {Component} from '@angular/core';
-import {NgForm}    from '@angular/common';
 import { UserProfile }    from './user-profile';
 import {UserProfileService} from "./user-profile.service";
 import {OnInit} from "@angular/core";
-import {Router, RouteParams} from "@angular/router-deprecated";
+import {Router} from "@angular/router";
 import {REACTIVE_FORM_DIRECTIVES, FormControl, FormGroup} from '@angular/forms';
 
 @Component({
@@ -31,16 +30,15 @@ export class UserProfileFormComponent implements OnInit{
       userName:       new FormControl()
     });
 
-    entityId:number;
+    entityId:number = 23;
 
     constructor(private _router:Router,
-                private _routeParams: RouteParams,
                 private _httpService:UserProfileService) {
 
     }
 
     ngOnInit() {
-        this.entityId = +this._routeParams.get('entityId');
+        //this.entityId = +this._routeParams.get('entityId');
         this.onGetUserProfile();
     }
 

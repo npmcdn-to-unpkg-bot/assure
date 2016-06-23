@@ -1,6 +1,6 @@
 import {Component,OnInit} from '@angular/core';
 import {NgForm}    from '@angular/common';
-import {RouteParams, Router} from "@angular/router-deprecated";
+import {Router} from "@angular/router";
 import {REACTIVE_FORM_DIRECTIVES, FormControl, FormGroup} from '@angular/forms';
 
 import {RfidMonitor}    from './rfid-monitor';
@@ -27,17 +27,16 @@ export class RfidMonitorFormComponent implements OnInit{
     });
 
 
-  entityId:number; // =23;
+  entityId:number =23;
 
 
     constructor(private _router:Router,
-                private _routeParams: RouteParams,
                 private _httpService:RfidMonitorService) {
 
     }
 
     ngOnInit() {
-        this.entityId = +this._routeParams.get('entityId');
+        //this.entityId = +this._routeParams.get('entityId');
         this.onGetRfidMonitor();
     }
 

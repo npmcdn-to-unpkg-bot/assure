@@ -49,10 +49,6 @@ System.config({
           main: 'bundles/http.umd.js',
           defaultExtension: 'js'
       },
-      '@angular/router-deprecated': {
-          main: 'bundles/router-deprecated.umd.js',
-          defaultExtension: 'js'
-      },
       rxjs: {
           defaultExtension: 'js'
       }

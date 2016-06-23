@@ -12,6 +12,11 @@ import {UserProfileFormComponent} from "./user-profile-form.component";
 //},
 
 export const routes: RouterConfig = [
+  {
+    path: '',
+      redirectTo: '/rfid-monitor',
+    terminal: true
+  },
   { path: 'rfid-monitor', component: RfidMonitorFormComponent },
   { path: 'rfid-reader', component: RfidReaderFormComponent },
   { path: 'user-profile', component: UserProfileFormComponent }
