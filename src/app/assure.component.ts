@@ -1,17 +1,15 @@
 import {Component, OnInit}         from '@angular/core';
-import { ROUTER_DIRECTIVES } from '@angular/router';
+import { ROUTER_DIRECTIVES, Router } from '@angular/router';
 import {REACTIVE_FORM_DIRECTIVES, FormControl, FormGroup} from '@angular/forms';
 
 import {Entity} from "./entity";
-
 import {AdministrationService} from "./administration.service";
-import {UtilityService} from "./utility.service";
 
 @Component({
   selector: 'assure-app',
   templateUrl: 'app/assure.component.html',
   directives: [ROUTER_DIRECTIVES, REACTIVE_FORM_DIRECTIVES],
-  providers: [ AdministrationService, UtilityService]
+  providers: [ AdministrationService]
 })
 
 export class AssureAppComponent implements OnInit {
@@ -21,27 +19,25 @@ export class AssureAppComponent implements OnInit {
     entityId:number;
     title:string = 'Next Gen Assure';
 
-  administrationForm = new FormGroup({
+    administrationForm = new FormGroup({
         entity: new FormControl()
     });
 
     userTypes:any = [];
     userStatuses:any = [];
 
-    constructor(private _http: AdministrationService,
-    private _httpUtilityService: UtilityService) {
-
-    }
+    constructor(
+      private router: Router,
+      private http: AdministrationService) {}
 
     ngOnInit() {
         console.log('AssureAppComponent - ngOnInit called');
         this.onGetEntity();
-        //this.onGetUserType();
     }
 
 
     onGetEntity() {
-        this._http.getEntity()
+        this.http.getEntity()
             .subscribe(
                 data => this.entitys = data,
                 error => console.log(error), //alert(error.toString()),
@@ -49,9 +45,9 @@ export class AssureAppComponent implements OnInit {
             )
     }
     onSelectEntity(entity: Entity) {
-        //console.log('onSelectEntity Called entityId 1=' + this.administrationForm );
         console.log('onSelectEntity Called - entity_id =' + entity.entity_id? entity.entity_id : "Not Set" );
         this.entitySelect = true;
-        this.entityId = entity.entity_id;
+        //this.entityId = entity.entity_id;
+        this.router.navigate(['/rfid-monitor', entity.entity_id]);
     }
 }

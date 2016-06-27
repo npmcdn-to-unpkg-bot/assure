@@ -10,8 +10,8 @@
 
             <div class="form-group">
                 <label>Entity</label>
-                <select class="form-control" required (change)="onSelectEntity(entity)" >
-                    <option *ngFor="let entity of entitys"> {{entity.entity_id}} - {{entity.entity_code}}
+                <select class="form-control" required >
+                    <option *ngFor="let entity of entitys" (change)="onSelectEntity(entity)" > {{entity.entity_id}} - {{entity.entity_code}}
                     </option>
                 </select>
               <li *ngFor="let entity of entitys"  class="form-control" (click)="onSelectEntity(entity)">
@@ -24,9 +24,9 @@
 
     <div [hidden]="!entitySelect">
         <nav>
-            <a [routerLink]="['/rfid-monitor']">RFID Monitor</a>
-            <a [routerLink]="['/rfid-reader']">RFID Reader</a>
-            <a [routerLink]="['/user-profile']">User Profile</a>
+            <a [routerLink]="['/rfid-monitor/:entity.entity_id]']">RFID Monitor</a>
+            <a [routerLink]="['/rfid-reader/:entity.entity_id]']">RFID Reader</a>
+            <a [routerLink]="['/user-profile/:entity.entity_id]']">User Profile</a>
         </nav>
         <router-outlet></router-outlet>
     </div>

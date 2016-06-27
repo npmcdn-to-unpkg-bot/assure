@@ -1,6 +1,6 @@
-import {Component,OnInit} from '@angular/core';
+import {Component, OnInit, OnDestroy} from '@angular/core';
 import {NgForm}    from '@angular/common';
-import {Router} from "@angular/router";
+import {Router, ActivatedRoute } from "@angular/router";
 import {REACTIVE_FORM_DIRECTIVES, FormControl, FormGroup} from '@angular/forms';
 
 import {RfidMonitor}    from './rfid-monitor';
@@ -12,7 +12,7 @@ import {RfidMonitorService} from "./rfid-monitor.service";
   directives: [REACTIVE_FORM_DIRECTIVES],
   providers: [RfidMonitorService]
 })
-export class RfidMonitorFormComponent implements OnInit{
+export class RfidMonitorFormComponent implements OnInit, OnDestroy{
 
     rfidMonitors = [];
 
@@ -28,27 +28,38 @@ export class RfidMonitorFormComponent implements OnInit{
 
 
   entityId:number =23;
+  private sub: any;
 
 
-    constructor(private _router:Router,
-                private _httpService:RfidMonitorService) {
-
-    }
+    constructor(private route: ActivatedRoute,
+                private router:Router,
+                private httpService:RfidMonitorService) {}
 
     ngOnInit() {
-        //this.entityId = +this._routeParams.get('entityId');
-        this.onGetRfidMonitor();
+        this.sub = this.route.params.subscribe(params => {
+          let id = +params['id']; // (+) converts string 'id' to a number
+          //this.onGetRfidMonitor();
+          this.httpService.getRfidMonitor(id)
+            .subscribe(
+              data => {this.rfidMonitors = data;
+                console.log('getRFIDMonitor data');
+                //JSON.stringify(data)
+              },
+              error => console.log(error), //alert(error.toString()),
+              () => console.log('getRFIDMonitor Finished')
+            )
+        });
     }
 
-    goBack() {
-        window.history.back();
+    ngOnDestroy() {
+      this.sub.unsubscribe();
     }
 
 
     onGetRfidMonitor() {
 
         console.log('entityId is ' + this.entityId.toString());
-        this._httpService.getRfidMonitor(this.entityId)
+        this.httpService.getRfidMonitor(this.entityId)
             .subscribe(
                 data => {this.rfidMonitors = data;
                     console.log('getRFIDMonitor data');
@@ -63,7 +74,7 @@ export class RfidMonitorFormComponent implements OnInit{
         this.submitted = true;
         console.log(JSON.stringify(this.selectedRfidMonitor));
 
-        this._httpService.updateRfidMonitor(this.selectedRfidMonitor)
+        this.httpService.updateRfidMonitor(this.selectedRfidMonitor)
             .subscribe(
                 data => {
                     this.editMode = 'no';

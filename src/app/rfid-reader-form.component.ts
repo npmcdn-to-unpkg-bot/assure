@@ -1,5 +1,5 @@
-import {Component,OnInit} from '@angular/core';
-import {Router} from "@angular/router";
+import {Component, OnInit, OnDestroy} from '@angular/core';
+import {Router, ActivatedRoute } from "@angular/router";
 
 import {RfidReader}    from './rfid-reader';
 import {RfidReaderService} from "./rfid-reader.service";
@@ -11,7 +11,7 @@ import {REACTIVE_FORM_DIRECTIVES, FormControl, FormGroup} from '@angular/forms';
   directives: [REACTIVE_FORM_DIRECTIVES],
   providers: [RfidReaderService]
 })
-export class RfidReaderFormComponent implements OnInit{
+export class RfidReaderFormComponent implements OnInit, OnDestroy{
 
     rfidReaders = [];
 
@@ -26,27 +26,37 @@ export class RfidReaderFormComponent implements OnInit{
     });
 
   entityId:number=23;
+  private sub: any;
 
 
-    constructor(private _router:Router,
-                private _httpService:RfidReaderService) {
+  constructor(private route: ActivatedRoute,
+              private router:Router,
+              private httpService:RfidReaderService) {}
 
-    }
+  ngOnInit() {
+    this.sub = this.route.params.subscribe(params => {
+      let id = +params['id']; // (+) converts string 'id' to a number
+      //this.onGetRfidMonitor();
+      this.httpService.getRfidReader(id)
+        .subscribe(
+          data => {this.rfidReaders = data;
+            console.log('getRFIDReader data');
+            //JSON.stringify(data)
+          },
+          error => console.log(error), //alert(error.toString()),
+          () => console.log('getRFIDReader Finished')
+        )
+    });
+  }
 
-    ngOnInit() {
-        //this.entityId = +this._routeParams.get('entityId');
-        this.onGetRfidReader();
-    }
+  ngOnDestroy() {
+    this.sub.unsubscribe();
+  }
 
-    goBack() {
-        window.history.back();
-    }
-
-
-    onGetRfidReader() {
+  onGetRfidReader() {
 
         console.log('entityId is ' + this.entityId.toString());
-        this._httpService.getRfidReader(this.entityId)
+        this.httpService.getRfidReader(this.entityId)
             .subscribe(
                 data => {this.rfidReaders = data;
                     console.log('getRFIDReader data');
@@ -61,7 +71,7 @@ export class RfidReaderFormComponent implements OnInit{
         this.submitted = true;
         console.log(JSON.stringify(this.selectedRfidReader));
 
-        this._httpService.updateRfidReader(this.selectedRfidReader)
+        this.httpService.updateRfidReader(this.selectedRfidReader)
             .subscribe(
                 data => {
                     this.editMode = 'no';
