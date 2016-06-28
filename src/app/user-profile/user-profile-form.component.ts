@@ -7,7 +7,7 @@ import {REACTIVE_FORM_DIRECTIVES, FormControl, FormGroup} from '@angular/forms';
 
 @Component({
   selector: 'user-profile-form',
-  templateUrl: 'app/user-profile-form.component.html',
+  templateUrl: 'app/user-profile/user-profile-form.component.html',
   directives: [REACTIVE_FORM_DIRECTIVES],
   providers: [UserProfileService]
 })

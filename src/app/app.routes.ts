@@ -8,14 +8,15 @@ import {AdministrationFormComponent} from "./administration/administration-form.
 import { LoginRoutes, AUTH_PROVIDERS }     from './login.routes';
 
 import { CanDeactivateGuard } from './interfaces';
+import { AuthGuard }             from './auth.guard';
 
 export const routes: RouterConfig = [
   ...LoginRoutes,
   { path: '', redirectTo: 'entity', terminal: true },
   { path: 'entity', component: AdministrationFormComponent },
-  { path: 'entity/:entityId/rfid-monitors', component: RfidMonitorFormComponent, canDeactivate: [CanDeactivateGuard] },
-  { path: 'entity/:entityId/rfid-readers',  component: RfidReaderFormComponent,  canDeactivate: [CanDeactivateGuard] },
-  { path: 'entity/:entityId/user-profiles', component: UserProfileFormComponent, canDeactivate: [CanDeactivateGuard] }
+  { path: 'entity/:entityId/rfid-monitors', component: RfidMonitorFormComponent, canActivate: [AuthGuard] },
+  { path: 'entity/:entityId/rfid-readers',  component: RfidReaderFormComponent,  canActivate: [AuthGuard] },
+  { path: 'entity/:entityId/user-profiles', component: UserProfileFormComponent, canActivate: [AuthGuard]}
 ];
 
 export const APP_ROUTER_PROVIDERS = [

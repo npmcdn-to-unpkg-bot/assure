@@ -7,7 +7,7 @@ import {REACTIVE_FORM_DIRECTIVES, FormControl, FormGroup} from '@angular/forms';
 
 @Component({
   selector: 'rfid-reader-form',
-  templateUrl: 'app/rfid-reader-form.component.html',
+  templateUrl: 'app/rfid-reader/rfid-reader-form.component.html',
   directives: [REACTIVE_FORM_DIRECTIVES],
   providers: [RfidReaderService]
 })
