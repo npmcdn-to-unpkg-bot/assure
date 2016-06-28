@@ -1,6 +1,6 @@
 import {Component, OnInit, OnDestroy} from '@angular/core';
 import {NgForm}    from '@angular/common';
-import {Router, ActivatedRoute } from "@angular/router";
+import {Router, ActivatedRoute, ROUTER_DIRECTIVES } from "@angular/router";
 import {REACTIVE_FORM_DIRECTIVES, FormControl, FormGroup} from '@angular/forms';
 
 import {RfidMonitor}    from './rfid-monitor';
@@ -8,8 +8,8 @@ import {RfidMonitorService} from "./rfid-monitor.service";
 
 @Component({
   selector: 'rfid-monitor-form',
-  templateUrl: 'app/rfid-monitor-form.component.html',
-  directives: [REACTIVE_FORM_DIRECTIVES],
+  templateUrl: 'app/rfid-monitor/rfid-monitor-form.component.html',
+  directives: [REACTIVE_FORM_DIRECTIVES, ROUTER_DIRECTIVES],
   providers: [RfidMonitorService]
 })
 export class RfidMonitorFormComponent implements OnInit, OnDestroy{
@@ -27,7 +27,7 @@ export class RfidMonitorFormComponent implements OnInit, OnDestroy{
     });
 
 
-  entityId:number =23;
+  entityId:number; // =23;
   private sub: any;
 
 
@@ -37,9 +37,9 @@ export class RfidMonitorFormComponent implements OnInit, OnDestroy{
 
     ngOnInit() {
         this.sub = this.route.params.subscribe(params => {
-          let id = +params['id']; // (+) converts string 'id' to a number
+          this.entityId = +params['entityId']; // (+) converts string 'id' to a number
           //this.onGetRfidMonitor();
-          this.httpService.getRfidMonitor(id)
+          this.httpService.getRfidMonitor(this.entityId)
             .subscribe(
               data => {this.rfidMonitors = data;
                 console.log('getRFIDMonitor data');

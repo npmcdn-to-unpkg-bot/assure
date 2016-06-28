@@ -1,0 +1,17 @@
+<div class="container">
+
+  <div>
+    <h2>Entity</h2>
+    <ul class="items">
+      <li *ngFor="let entity of entitys"
+          [class.selected]="isSelected(entity)"
+          (click)="onSelectEntity(entity)">
+        {{entity.entity_code}}
+      </li>
+    </ul>
+  </div>
+
+
+
+</div>
+

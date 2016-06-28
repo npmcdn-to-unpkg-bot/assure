@@ -3,33 +3,16 @@
 <div class="container">
 
     <div>
-        <h2>Administration</h2>
-
-
-        <form [formGroup]="administrationForm">
-
-            <div class="form-group">
-                <label>Entity</label>
-                <select class="form-control" required >
-                    <option *ngFor="let entity of entitys" (change)="onSelectEntity(entity)" > {{entity.entity_id}} - {{entity.entity_code}}
-                    </option>
-                </select>
-              <li *ngFor="let entity of entitys"  class="form-control" (click)="onSelectEntity(entity)">
-                {{entity.entity_code}}
-              </li>
-            </div>
-        </form>
-      {{administrationForm.value | json}}
-    </div>
-
-    <div [hidden]="!entitySelect">
         <nav>
-            <a [routerLink]="['/rfid-monitor/:entity.entity_id]']">RFID Monitor</a>
-            <a [routerLink]="['/rfid-reader/:entity.entity_id]']">RFID Reader</a>
-            <a [routerLink]="['/user-profile/:entity.entity_id]']">User Profile</a>
+            <a [routerLink]="['/entity']">Entity</a>
+            <a (click)="onSelectRfidMonitor()">RFID Monitor</a>
+            <a (click)="onSelectRfidReader()">RFID Reader</a>
+            <a (click)="onSelectUserProfile()">User Profile</a>
+            <a [routerLink]="['/login']">Login</a>
         </nav>
-        <router-outlet></router-outlet>
     </div>
-
+    <div>
+      <router-outlet></router-outlet>
+    </div>
 </div>
 

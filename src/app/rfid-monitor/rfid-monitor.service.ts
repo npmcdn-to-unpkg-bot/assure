@@ -5,7 +5,7 @@ import {Injectable} from '@angular/core';
 import {Http, Headers, RequestOptions } from '@angular/http';
 import 'rxjs/add/operator/map';
 import {RfidMonitor} from "./rfid-monitor";
-import {API_BASE_URL, API_RFID_MONITOR_URL} from "./app.config";
+import {API_BASE_URL, API_RFID_MONITOR_URL} from "../app.config";
 
 @Injectable()
 export class RfidMonitorService {

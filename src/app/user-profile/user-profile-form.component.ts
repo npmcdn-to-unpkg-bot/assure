@@ -30,7 +30,7 @@ export class UserProfileFormComponent implements OnInit{
       userName:       new FormControl()
     });
 
-  entityId:number=23;
+  entityId:number; //=23;
   private sub: any;
 
 
@@ -40,9 +40,8 @@ export class UserProfileFormComponent implements OnInit{
 
   ngOnInit() {
     this.sub = this.route.params.subscribe(params => {
-      let id = +params['id']; // (+) converts string 'id' to a number
-      //this.onGetRfidMonitor();
-      this.httpService.getUserProfile(id, 0)
+      this.entityId = +params['entityId']; // (+) converts string 'id' to a number
+      this.httpService.getUserProfile(this.entityId, 0)
         .subscribe(
           data => {this.userProfiles = data;
             console.log('getUserProfile data');

@@ -25,7 +25,7 @@ export class RfidReaderFormComponent implements OnInit, OnDestroy{
       description: new FormControl()
     });
 
-  entityId:number=23;
+  entityId:number; //=23;
   private sub: any;
 
 
@@ -35,14 +35,11 @@ export class RfidReaderFormComponent implements OnInit, OnDestroy{
 
   ngOnInit() {
     this.sub = this.route.params.subscribe(params => {
-      let id = +params['id']; // (+) converts string 'id' to a number
-      //this.onGetRfidMonitor();
-      this.httpService.getRfidReader(id)
+      this.entityId = +params['entityId']; // (+) converts string 'id' to a number
+      this.httpService.getRfidReader(this.entityId)
         .subscribe(
           data => {this.rfidReaders = data;
-            console.log('getRFIDReader data');
-            //JSON.stringify(data)
-          },
+            console.log('getRFIDReader data');},
           error => console.log(error), //alert(error.toString()),
           () => console.log('getRFIDReader Finished')
         )
