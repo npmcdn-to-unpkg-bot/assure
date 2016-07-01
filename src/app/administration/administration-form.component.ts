@@ -6,6 +6,7 @@ import {REACTIVE_FORM_DIRECTIVES, FormControl, FormGroup} from '@angular/forms';
 import {AdministrationService} from "./administration.service";
 import {Entity} from "../entity";
 import {EntityService} from "../entity.service";
+import {AuthService} from "../auth.service";
 
 @Component({
   selector: 'administration-form',
@@ -21,7 +22,8 @@ export class AdministrationFormComponent implements OnInit {
 
     constructor(private router: Router,
                 private http:AdministrationService,
-                private entityService:EntityService) {
+                private entityService:EntityService,
+                private authService:AuthService) {
 
     }
 
@@ -45,6 +47,10 @@ export class AdministrationFormComponent implements OnInit {
   onSelectEntity(entity: Entity) {
     console.log('onSelectEntity Called - entity_id =' + entity.entity_id? entity.entity_id : "Not Set" );
     this.entitySelect = true;
+
+    // AMS TODO - Temp method for checking entity selected before showing children
+    this.authService.isLoggedIn = true;
+
     //this.entityId = entity.entity_id;
     this.entityService.setEntity(entity.entity_id);
   }

@@ -5,10 +5,9 @@
     <div>
         <nav>
             <a [routerLink]="['/entity']">Entity</a>
-            <a (click)="onSelectRfidMonitor()">RFID Monitor</a>
-            <a (click)="onSelectRfidReader()">RFID Reader</a>
-            <a (click)="onSelectUserProfile()">User Profile</a>
-            <a [routerLink]="['/login']">Login</a>
+              <a *ngIf="isEntitySelected()" (click)="onSelectRfidMonitor()">RFID Monitor</a>
+              <a *ngIf="isEntitySelected()" (click)="onSelectRfidReader()">RFID Reader</a>
+              <a *ngIf="isEntitySelected()" (click)="onSelectUserProfile()">User Profile</a>
         </nav>
     </div>
     <div>

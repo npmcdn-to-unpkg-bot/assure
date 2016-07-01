@@ -3,6 +3,7 @@ export const API_BASE_URL: string = 'https://magellan.ammatech.com.au/rest/Assur
 export const API_UTILITY_URL: string = 'https://magellan.ammatech.com.au/rest/Assure_Dev_Utility';
 
 // Individual Main Services
+export const API_ENTITY_URL: string         = `${API_BASE_URL}/EntityService`;
 export const API_RFID_MONITOR_URL: string   = `${API_BASE_URL}/RfidMonitorService`;
 export const API_RFID_READER_URL: string    = `${API_BASE_URL}/RfidReaderService`;
 export const API_USER_PROFILE_URL: string   = `${API_BASE_URL}/UserProfileService`;

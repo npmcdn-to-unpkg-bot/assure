@@ -22,7 +22,7 @@ System.config({
         defaultExtension: 'js'
       },
       '@angular/router': {
-        main: 'index.js',
+        main: 'bundles/router.umd.js',
         defaultExtension: 'js'
       },
       '@angular/compiler': {
